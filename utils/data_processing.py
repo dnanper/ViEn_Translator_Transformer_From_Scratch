@@ -435,15 +435,16 @@ def get_dataloaders(datasets: Dict[str, TranslationDataset],
     )
     
     # Validation and Test DataLoaders without shuffling
-    # for split in ['validation', 'test']:
-    #     dataloaders[split] = DataLoader(
-    #         datasets[split],
-    #         batch_size=batch_size,
-    #         shuffle=False,
-    #         collate_fn=lambda b: collate_fn(b, pad_idx),
-    #         num_workers=0,
-    #         pin_memory=True if Config.USE_CUDA else False
-    #     )
+    for split in ['validation', 'test']:
+        if split in datasets:
+            dataloaders[split] = DataLoader(
+                datasets[split],
+                batch_size=batch_size,
+                shuffle=False,
+                collate_fn=lambda b: collate_fn(b, pad_idx),
+                num_workers=0,
+                pin_memory=True if Config.USE_CUDA else False
+            )
     
     return dataloaders
 

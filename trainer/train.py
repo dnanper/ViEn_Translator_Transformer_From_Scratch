@@ -110,6 +110,11 @@ class Trainer:
             src_mask = batch['src_mask'].to(self.config.device)  # [batch_size, 1, 1, src_len]
             tgt_mask = batch['tgt_mask'].to(self.config.device)  # [batch_size, 1, tgt_len, tgt_len]
             
+            # Validate token IDs (防止 index out of bounds)
+            vocab_size = self.model.tgt_vocab_size
+            src = torch.clamp(src, 0, vocab_size - 1)
+            tgt = torch.clamp(tgt, 0, vocab_size - 1)
+            
             # Prepare input and output
             tgt_input = tgt[:, :-1]   # Remove last token (for input)
             tgt_output = tgt[:, 1:]   # Remove first token (for output)

@@ -54,8 +54,8 @@ class LabelSmoothingLoss(nn.Module):
         # Flatten if needed
         if logits.dim() == 3:
             batch_size, seq_len, num_classes = logits.size()
-            logits = logits.view(-1, num_classes)
-            targets = targets.view(-1)
+            logits = logits.contiguous().view(-1, num_classes)
+            targets = targets.contiguous().view(-1)
         
         # Get log probabilities
         log_probs = F.log_softmax(logits, dim=-1)
@@ -132,7 +132,7 @@ class CrossEntropyLoss(nn.Module):
         # Flatten if needed
         if logits.dim() == 3:
             batch_size, seq_len, num_classes = logits.size()
-            logits = logits.view(-1, num_classes)
-            targets = targets.view(-1)
+            logits = logits.contiguous().view(-1, num_classes)
+            targets = targets.contiguous().view(-1)
         
         return self.loss_fn(logits, targets)
