@@ -475,7 +475,7 @@ if __name__ == "__main__":
     
     # Download and prepare data (using PhoMT dataset)
     # Uncomment if you need to download the dataset
-    # data = processor.download_and_prepare_phomt()
+    data = processor.download_and_prepare_phomt()
     
     # Load pre-trained tokenizer from SentencePiece-from-scratch
     tokenizer_dir = os.path.join(

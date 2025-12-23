@@ -522,12 +522,7 @@ def main():
     # Paths (relative to project root)
     SAVE_DIR = PROJECT_ROOT / "checkpoints" / "best_model_en2vi"
     TOKENIZER_DIR = PROJECT_ROOT / "SentencePiece-from-scratch" / "tokenizer_models"
-    
-    # Model configuration - THAY ĐỔI KÍCH CỠ MODEL TẠI ĐÂY:
-    # .small() - 256d, 4 layers, ~60M params (fast training)
-    # .base()  - 512d, 6 layers, ~65M params (balanced) ⭐ RECOMMENDED
-    # .large() - 1024d, 6 layers, ~213M params (best quality)
-    # .deep()  - 512d, 12 layers (very deep)
+
     config = TransformerConfig.base()
     config.device = 'cuda' if torch.cuda.is_available() else 'cpu'
     config.max_len = Config.MAX_LEN
